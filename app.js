@@ -5,10 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var signup = require('./routes/signup');
-
 var app = express();
 
 app.use(favicon(__dirname + '/../client/app/favicon.ico'));
@@ -25,10 +21,7 @@ if(app.get('env') === 'development') {
   app.use(express.static(path.join(__dirname, '/dist')));
 }
 
-/**
- * Routes
- */
-app.use('/signup', signup);
+var router = require('./router')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
