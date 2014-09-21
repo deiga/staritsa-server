@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var signup = require('./routes/signup');
 
 var app = express();
 
@@ -20,8 +21,14 @@ if(app.get('env') === 'development') {
   app.use(express.static(path.join(__dirname, '../client')));
   app.use(express.static(path.join(__dirname, '../client/.tmp')));
   app.use(express.static(path.join(__dirname, '../client/app')));
+} else if (app.get('env') === 'production'){
+  app.use(express.static(path.join(__dirname, '/dist')));
 }
-app.use(express.static(path.join(__dirname, '/dist')));
+
+/**
+ * Routes
+ */
+app.use('/signup', signup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
